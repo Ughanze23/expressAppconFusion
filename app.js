@@ -3,9 +3,34 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
 
+// connecting express server to mongodb 
+const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+const url = 'mongodb://localhost:27017/confusion';
+const connect = mongoose.connect(url, {  autoIndex: false 
+});
+
+connect.then((db) =>{
+console.log('Connected to server correctly')
+}).catch((err) => {
+  console.log(err);
+})
+
+
+//importing models
+const Dishes = require('./models/dishes');
+
+
+
+
+//importing router
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var dishRouter = require('./routes/dishRouter');
+var promoRouter = require('./routes/promoRouter');
+var leaderRouter = require('./routes/leaderRouter');
 
 var app = express();
 
@@ -19,8 +44,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//setting up routers and routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/dishes',dishRouter);
+app.use('/promotions',promoRouter);
+app.use('/leaders',leaderRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
