@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 // connecting express server to mongodb 
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-const url = 'mongodb://localhost:27017/confusion';
+const url = 'mongodb://localhost:27017/conFusion';
 const connect = mongoose.connect(url, {  autoIndex: false 
 });
 
@@ -21,7 +21,8 @@ console.log('Connected to server correctly')
 
 //importing models
 const Dishes = require('./models/dishes');
-
+const Promotions = require('./models/promotions');
+const Leaders = require('./models/leaders');
 
 
 
