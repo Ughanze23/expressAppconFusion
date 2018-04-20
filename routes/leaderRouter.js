@@ -64,7 +64,7 @@ leaderRouter.route('/:leaderId')
   .catch((err) => next(err))
 })
 .delete((req,res,next) => {
-    Leaders.findByIdAndRemove(req.params.leaderId)
+    Leaders.findById(req.params.leaderId)
     .then((resp) => {
         res.statusCode = 200;
         res.setHeader('Content-Type','application/json');
